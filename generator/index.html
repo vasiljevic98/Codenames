@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060)https://getbootstrap.com/docs/4.0/examples/starter-template/ -->
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="https://getbootstrap.com/docs/4.0/assets/img/favicons/favicon.ico">
+
+    <title>Starter Template for Bootstrap</title>
+
+    <!-- <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/starter-template/">
+    <link href="./Starter Template for Bootstrap_files/bootstrap.min.css" rel="stylesheet">
+    <link href="./Starter Template for Bootstrap_files/starter-template.css" rel="stylesheet"> -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<style>
+    body {
+
+        background-image: url("wood-pattern.png");
+        background-color: #fff1e1;
+
+    }
+
+    .container {
+
+        /* display: table-cell; */
+        margin: 20;
+
+    }
+
+    .board {
+        display: inline-grid;
+        grid-template-columns: repeat(5, 15vh);
+        grid-template-rows: repeat(4, 15vh);
+        grid-gap: 7px;
+        padding: 20px;
+        background-color: rgb(20, 20, 20);
+        border-radius: 20px;
+
+    }
+
+    .tile {
+        /* center the cell content */
+
+        justify-content: center;
+        align-items: center;
+        display: flex;
+
+        background: white;
+        min-height: 0;
+        border-radius: 10px;
+        
+
+        background-size: cover;
+
+
+
+    }
+
+    .filter {
+        width: 100%;
+        height: 100%;
+        opacity: 1;
+        transition: 0.5s;
+        border-radius: 10px;
+
+    }
+
+
+    .middle {
+
+
+        transition: .5s ease;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        background-color: none;
+        padding: 10px;
+
+
+    }
+
+    .middle:hover {
+        opacity: 1;
+    }
+
+    .o_button {
+
+        border-radius: 50%;
+        padding: 15px 15px;
+
+        width: 25%;
+        height: 25%;
+
+
+
+    }
+
+    .b_img {
+
+        background-color: white;
+    }
+
+    .b_black {
+
+        background-color: rgb(32, 32, 32);
+    }
+
+    .b_red {
+
+        background-color: rgb(179, 32, 32);
+    }
+
+    .b_blue {
+
+        background-color: rgb(16, 73, 195);
+    }
+
+    .b_neutral {
+
+        background-color: rgb(207, 193, 175);
+    }
+
+    .b_img {
+        background-color: white;
+    }
+
+    .tile_black {
+        background-image: none;
+        background-color: rgb(47, 47, 47);
+    }
+
+    .tile_red {
+        background-image: none;
+        background-color: rgb(179, 32, 32);
+    }
+
+    .tile_blue {
+        background-image: none;
+        background-color: rgb(16, 73, 195);
+    }
+
+    .tile_neutral {
+        background-image: none;
+        background-color: rgb(231, 197, 153);
+        ;
+    }
+
+    #n_page {
+
+        width: 20px;
+        text-align: center;
+    }
+
+    #seed {
+
+        width: 80px;
+        font-size: 30px;
+        text-align: center;
+    }
+
+    .logo {
+
+        height: 8vh;
+
+        margin: 10px;
+        text-align: center;
+
+    }
+
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+
+        color: rgb(12, 12, 12);
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .seed_label {
+
+        font-size: 30px;
+    }
+    #b_radnom{
+        font-size: 30px;
+    }
+    .line{
+
+        padding: 10px;
+  
+    }
+    .outline{
+
+        padding: 7px;
+        border-radius: 20px;
+        display: inline-flex;
+
+
+  
+    }
+</style>
+
+<body data-gr-c-s-loaded="true">
+
+
+
+
+
+
+    <center>
+        <img src="https://czechgames.com/for-press/codenames/codenames-13.png" class="logo" alt="logo" />
+
+
+        <div class="container">
+            <div class = "outline">
+
+                <div class="board">
+                
+                
+    
+                </div>
+                
+            </div>
+            <div class="line">
+                <label class="seed_label">card seed</label>
+                <input type="text" id="seed">
+                <button id="b_radnom"> Random </button>
+                
+
+
+            </div>
+        </div>
+    </center>
+    <div class="footer">
+        <p> &copy; 2020 <b>Djore</b>. All rights reserved </p>
+    </div>
+
+
+
+
+    <script>
+
+        $(document).ready(function () {
+
+            $(".o_button").click(function () {
+                background = "none";
+                parent = this.parentElement.parentElement;
+
+                console.log(parent)
+                resetSelection(parent);
+
+                if (this.classList.contains("b_black")) parent.classList.add("tile_black")
+                if (this.classList.contains("b_blue")) parent.classList.add("tile_blue")
+                if (this.classList.contains("b_red")) parent.classList.add("tile_red")
+                if (this.classList.contains("b_neutral")) parent.classList.add("tile_neutral")
+                console.log(parent)
+
+            });
+
+            $("#n_page").change(function () {
+                page = parseInt(this.value);
+                if (page != NaN)
+                    setPage(page);
+                else
+                    alert("NaN");
+            });
+
+            $("#seed").change(function () {
+                val = parseInt(this.value);
+                if (val != NaN) {
+                    setSeedAndPerm(val);
+                    setPage(0);
+                }
+                else
+                    alert("NaN");
+            });
+            $("#b_radnom").click(function () {
+                seed = Math.round(Math.random()*10000);
+                setSeedAndPerm(seed);
+                refresh_table();
+            });
+         
+
+        });
+
+        function Random(seed) {
+            this._seed = seed % 2147483647;
+            if (this._seed <= 0) this._seed += 2147483646;
+        }
+
+        Random.prototype.nextFloat = function (opt_minOrMax, opt_max) {
+            // We know that result of next() will be 1 to 2147483646 (inclusive).
+            return (this.next() - 1) / 2147483646;
+        };
+
+        /**
+         * Returns a pseudo-random value between 1 and 2^32 - 2.
+         */
+        Random.prototype.next = function () {
+            return this._seed = this._seed * 16807 % 2147483647;
+        };
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                let j = Math.floor(random.nextFloat() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        tile_string = `
+        <div class="tile" data-row="0" data-coloumn="0">
+            <div class="filter">
+                <div class="middle">
+
+                </div>
+            </div>
+            
+        </div>`
+
+        combination = 2;
+        rows = 4;
+        columns = 5;
+        num_of_cards = 278;
+        permutation = [];
+
+        seed = 123;
+
+
+
+
+
+        function fillGrid() {
+
+            $(".board").empty();
+
+            for (let i = 0; i < rows; i++)
+                for (let j = 0; j < columns; j++) {
+                    tile = $(tile_string)[0]
+                    tile.dataset.row = i;
+                    tile.dataset.coloumn = j;
+                    $(".board").append(tile)
+
+                    console.log(tile)
+                    console.log(`${i} ${j}`);
+
+                }
+
+
+        }
+
+        function removeAllSelections() {
+
+            $("div").removeClass("tile_black");
+            $("div").removeClass("tile_blue");
+            $("div").removeClass("tile_red");
+            $("div").removeClass("tile_neutral");
+        }
+
+        function resetSelection(el) {
+            el.classList.remove("tile_black");
+            el.classList.remove("tile_blue");
+            el.classList.remove("tile_red");
+            el.classList.remove("tile_neutral");
+        }
+        function refresh_table() {
+            removeAllSelections();
+            for (let i = 0; i < rows; i++)
+                for (let j = 0; j < columns; j++) {
+                    id = i * columns + j;
+                    card = permutation[id];
+
+                    el = $(".board").find(`[data-row='${i}'][data-coloumn='${j}']`)[0]
+
+                    color = "tile_neutral"
+
+                    if (card < 7)
+                        color = "tile_blue";
+                    else if (card < 14)
+                        color = "tile_red";
+
+                    else if (card == 14)
+                        if (seed % 2 == 0)
+                            color = "tile_blue";
+                        else
+                            color = "tile_red";
+                    else if(card == 15)
+                        color = "tile_black"
+
+                    el.children[0].classList.add(color)
+
+
+
+
+                    //el.style.backgroundImage = `url(./res/${card}.jpg)`;
+                    //el.css('background-image',`./res/${id}.jpg`) 
+
+                }
+                console.log(seed)
+                if(seed%2 ==0)
+                    $(".outline").addClass("tile_blue")
+                else
+                    $(".outline").addClass("tile_red")
+
+        }
+
+        function getPermunatin() {
+            array_perm = [];
+
+            for (let i = 0; i < 20; i++) {
+                array_perm.push(i)
+            }
+            shuffle(array_perm)
+            return array_perm;
+
+        }
+
+        function setSeedAndPerm(new_seed) {
+            seed = new_seed;
+            random = new Random(seed);
+            permutation = getPermunatin();
+            $("#seed").val(seed)
+        }
+        function nextTable() {
+            setPage(combination + 1);
+        }
+        function prevTable() {
+            setPage(Math.min(combination - 1, 0));
+
+        }
+        function setPage(num) {
+            if (num >= 0) {
+                console.log(num)
+                combination = num;
+                refresh_table();
+                $("#n_page").val(num)
+            }
+
+        }
+
+
+        fillGrid();
+        setSeedAndPerm(1233)
+        refresh_table()
+
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>
